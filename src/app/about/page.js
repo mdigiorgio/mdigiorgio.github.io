@@ -10,7 +10,7 @@ export default function About() {
         I’m a certified Divemaster with experience guiding dives in Australia, Dominican Republic, Italy, Jordan, Philippines, Thailand.
         This site showcases my work, my diving stories, and testimonials from happy customers.
       </p>
-      <a href="/your-resume.pdf" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+      <a href="/resume_scuba_mdg.pdf" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
         Download my Resume
       </a>
     </div>
