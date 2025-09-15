@@ -1,27 +1,148 @@
-// app/page.js
 'use client';
 
-import Link from 'next/link'
+import React, { useState } from 'react';
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Box,
+  Typography,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import FadeInSection from './components/FadeInSection';
 
-export default function Home() {
+export default function LandingPage() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const sections = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'stories', label: 'Stories' },
+    { id: 'reviews', label: 'Reviews' },
+  ];
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleScroll = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    handleClose();
+  };
+
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-800">Hi, I’m Michele</h1>
-      <p className="mt-4 text-lg text-blue-700">
-        PADI Divemaster – Sharing my passion for the underwater world!
-      </p>
-      <div className="mt-8 space-x-4">
-        <Link href="/about" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-          About Me
-        </Link>
-        <Link href="/stories" className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">
-          My Stories
-        </Link>
-        <Link href="/reviews" className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">
-          Reviews
-        </Link>
-      </div>
-    </div>
-  )
-}
+    <Box>
+      {/* Fixed burger button */}
+      <IconButton
+        onClick={(e) => {
+          open ? handleClose() : handleMenuClick(e);
+        }}
+        sx={{
+          position: 'fixed',
+          top: 16,
+          left: 16,
+          zIndex: 1500,
+          backgroundColor: 'white',
+          borderRadius: '50%',
+          boxShadow: 3,
+          '&:hover': { backgroundColor: 'grey.100' },
+        }}
+      >
+        {open ? <CloseIcon /> : <MenuIcon />}
+      </IconButton>
 
+      {/* Menu appearing below the button */}
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        PaperProps={{
+          sx: { mt: 1, boxShadow: 3 },
+        }}
+      >
+        {sections.map((sec) => (
+          <MenuItem key={sec.id} onClick={() => handleScroll(sec.id)}>
+            {sec.label}
+          </MenuItem>
+        ))}
+      </Menu>
+
+      {/* Sections */}
+      <Box component="main">
+        <section
+          id="home"
+          style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#e3f2fd',
+          }}
+        >
+          <FadeInSection>
+            <Typography variant="h3">Home</Typography>
+          </FadeInSection>
+        </section>
+
+        <section
+          id="about"
+          style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#fce4ec',
+          }}
+        >
+          <FadeInSection>
+            <Typography variant="h3">About</Typography>
+          </FadeInSection>
+        </section>
+
+        <section
+          id="stories"
+          style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#fff9c4',
+          }}
+        >
+          <FadeInSection>
+            <Typography variant="h3">Stories</Typography>
+          </FadeInSection>
+        </section>
+
+        <section
+          id="reviews"
+          style={{
+            height: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#c8e6c9',
+          }}
+        >
+          <FadeInSection>
+            <Typography variant="h3">Reviews</Typography>
+          </FadeInSection>
+        </section>
+      </Box>
+    </Box>
+  );
+}
