@@ -10,7 +10,9 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import FadeInSection from './components/FadeInSection';
+import FadeInSection from './components/FadeInSection'; // your fade component
+import ReviewsContent from './reviews/ReviewsContent.js';
+import AboutSection from './about/AboutSection.js';
 
 export default function LandingPage() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,11 +40,9 @@ export default function LandingPage() {
 
   return (
     <Box>
-      {/* Fixed burger button */}
+      {/* Fixed burger button with toggle */}
       <IconButton
-        onClick={(e) => {
-          open ? handleClose() : handleMenuClick(e);
-        }}
+        onClick={(e) => (open ? handleClose() : handleMenuClick(e))}
         sx={{
           position: 'fixed',
           top: 16,
@@ -57,7 +57,7 @@ export default function LandingPage() {
         {open ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
 
-      {/* Menu appearing below the button */}
+      {/* Menu under the button */}
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -91,6 +91,7 @@ export default function LandingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             background: '#e3f2fd',
+            scrollMarginTop: '80px',
           }}
         >
           <FadeInSection>
@@ -106,10 +107,11 @@ export default function LandingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             background: '#fce4ec',
+            scrollMarginTop: '80px',
           }}
         >
           <FadeInSection>
-            <Typography variant="h3">About</Typography>
+            <AboutSection />
           </FadeInSection>
         </section>
 
@@ -121,6 +123,7 @@ export default function LandingPage() {
             alignItems: 'center',
             justifyContent: 'center',
             background: '#fff9c4',
+            scrollMarginTop: '80px',
           }}
         >
           <FadeInSection>
@@ -131,15 +134,18 @@ export default function LandingPage() {
         <section
           id="reviews"
           style={{
-            height: '100vh',
+            minHeight: '100vh', // ensure at least full viewport
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start', // start at the top
             background: '#c8e6c9',
+            padding: '2rem',
+            scrollMarginTop: '80px',
           }}
         >
           <FadeInSection>
-            <Typography variant="h3">Reviews</Typography>
+            <ReviewsContent />
           </FadeInSection>
         </section>
       </Box>
