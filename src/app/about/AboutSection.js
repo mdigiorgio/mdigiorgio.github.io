@@ -7,10 +7,16 @@ import {
   Link,
   List,
   ListItem,
+  ListItemIcon,
+  ListItemText,
   Stack,
   Typography,
 } from '@mui/material';
 import { Star } from '@mui/icons-material';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import ItalianFlagIcon from '../components/flags/ItalianFlagIcon';
+import SpainFlagIcon from '../components/flags/SpainFlagIcon';
+import UKFlagIcon from '../components/flags/UKFlagIcon';
 
 function EducationGroup({ logo, href, name, location, courses }) {
   return (
@@ -54,6 +60,29 @@ function EducationGroup({ logo, href, name, location, courses }) {
   );
 }
 
+function WorkExperienceGroup({ experiences }) {
+  return (
+    <Box flex={1}>
+      <Typography variant="h5" gutterBottom>
+        Work Experience
+      </Typography>
+      <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+        Freelance Divemaster, Koh Tao (THA)
+      </Typography>
+      <List dense>
+        {experiences.map((item, idx) => (
+          <ListItem key={idx}>
+            <ListItemIcon sx={{ minWidth: 24 }}>
+              <FiberManualRecordIcon sx={{ fontSize: '10px' }} />
+            </ListItemIcon>
+            <ListItemText primary={item}/>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+}
+
 export default function AboutSection() {
   return (
     <Box id="about" sx={{ py: 6, maxWidth: 900, mx: 'auto', px: 2 }}>
@@ -74,9 +103,36 @@ export default function AboutSection() {
             Languages
           </Typography>
           <List dense>
-            <ListItem>Italian (Native)</ListItem>
-            <ListItem>English (Fluent)</ListItem>
-            <ListItem>Spanish (Fluent)</ListItem>
+            <ListItem>
+              <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+              }}>
+                <ItalianFlagIcon sx={{ fontSize: '30px' }}/>
+                <span>Italian (Native)</span>
+              </Box>
+            </ListItem>
+            <ListItem>
+              <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+              }}>
+                <UKFlagIcon sx={{ fontSize: '30px' }}/>
+                <span>English (Fluent)</span>
+              </Box>
+            </ListItem>
+            <ListItem>
+              <Box sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+              }}>
+                <SpainFlagIcon sx={{ fontSize: '30px' }}/>
+                <span>Spanish (Fluent)</span>
+              </Box>
+            </ListItem>
           </List>
 
           <Divider sx={{ my: 2 }} />
@@ -98,8 +154,8 @@ export default function AboutSection() {
           />
           <EducationGroup
             logo="/logos/logo_sierramadre.png"
-            href="https://sierramadredivers.com"
-            name="https://www.smdiversbohol.com/"
+            href="https://www.smdiversbohol.com/"
+            name="Sierra Madre Divers"
             location="Bohol, Philippines"
             courses={[
               { title: 'Deep Diver', date: 'Feb 2024' },
@@ -117,14 +173,14 @@ export default function AboutSection() {
             logo="/logos/logo_coral_point.jpg"
             href="https://coralpointdiving.com"
             name="Coral Point Diving"
-            location="Dominican Republic"
+            location="Bayahibe, Dominican Republic"
             courses={[{ title: 'Peak Performance Buoyancy', date: 'Nov 2022' }]}
           />
           <EducationGroup
             logo="/logos/logo_evasioni_blu.jpg"
             href="https://www.evasionibludiving.com"
             name="Evasioni Blu Diving"
-            location="Italy"
+            location="Ustica, Italy"
             courses={[{ title: 'Advanced Open Water Diver', date: 'Aug 2021' }]}
           />
           <EducationGroup
@@ -136,22 +192,18 @@ export default function AboutSection() {
           />
         </Box>
 
-        <Box flex={1}>
-          <Typography variant="h5" gutterBottom>
-            Work Experience
-          </Typography>
-          <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-            Freelance Divemaster, Koh Tao (THA)
-          </Typography>
-          <List dense>
-            <ListItem>Worked as freelance Divemaster in various dive centres in Koh Tao</ListItem>
-            <ListItem>Guided recreational dives in reef, wreck, and deep settings</ListItem>
-            <ListItem>Conducted scuba refresher/review courses for certified divers</ListItem>
-            <ListItem>Assisted instructors with Open Water, Advanced and Rescue courses</ListItem>
-            <ListItem>Delivered dive briefings and conducted equipment checks</ListItem>
-            <ListItem>Performed basic equipment maintenance and customer support</ListItem>
-          </List>
-        </Box>
+        <WorkExperienceGroup
+          experiences={[
+              'Worked as freelance Divemaster in various dive centres in Koh Tao',
+              'Guided recreational dives in reef, wreck, and deep settings',
+              'Conducted scuba refresher/review courses for certified divers',
+              'Conducted scuba refresher/review courses for certified divers',
+              'Assisted instructors with Open Water, Advanced and Rescue courses',
+              'Delivered dive briefings and conducted equipment checks',
+              'Conducted scuba refresher/review courses for certified divers',
+              'Performed basic equipment maintenance and customer support',
+          ]}
+        />
       </Stack>
 
       <Divider sx={{ my: 3 }} />
