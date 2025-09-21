@@ -83,10 +83,11 @@ export default function LandingPage() {
 
       {/* Sections */}
       <Box component="main">
+        {/* Hero/Home stays full viewport */}
         <section
           id="home"
           style={{
-            height: '100vh',
+            height: '100vh', // full screen hero
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -99,14 +100,13 @@ export default function LandingPage() {
           </FadeInSection>
         </section>
 
+        {/* About: auto height, will grow */}
         <section
           id="about"
           style={{
-            height: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            minHeight: '100vh', // at least full viewport but can grow
             background: '#fce4ec',
+            padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
         >
@@ -115,14 +115,13 @@ export default function LandingPage() {
           </FadeInSection>
         </section>
 
+        {/* Stories: auto height */}
         <section
           id="stories"
           style={{
-            height: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            minHeight: '100vh',
             background: '#fff9c4',
+            padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
         >
@@ -131,16 +130,13 @@ export default function LandingPage() {
           </FadeInSection>
         </section>
 
+        {/* Reviews: auto height */}
         <section
           id="reviews"
           style={{
-            minHeight: '100vh', // ensure at least full viewport
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'flex-start', // start at the top
+            minHeight: '100vh', // at least full viewport
             background: '#c8e6c9',
-            padding: '2rem',
+            padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
         >
