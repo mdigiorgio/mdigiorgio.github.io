@@ -90,17 +90,54 @@ export default function LandingPage() {
         <section
           id="home"
           style={{
+            position: 'relative',
             height: '100vh', // full screen hero
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: '#e3f2fd',
-            scrollMarginTop: '80px',
+            width: '100%',
+            overflow: 'hidden',
           }}
         >
-          <FadeInSection>
-            <Typography variant="h3">Home</Typography>
-          </FadeInSection>
+          {/* Background video */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: -1,
+            }}
+          >
+            <source src="/videos/diving.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          {/* Overlay with your text */}
+          <Box
+            sx={{
+              position: 'relative',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              color: 'white',
+              backgroundColor: 'rgba(0,0,0,0.3)', // subtle overlay
+              px: 2,
+            }}
+          >
+            <Typography variant="h2" sx={{ fontWeight: 700 }}>
+              Michele Di Giorgio
+            </Typography>
+            <Typography variant="h5" sx={{ mt: 2, maxWidth: 600 }}>
+              Divemaster | Profile & Contents
+            </Typography>
+          </Box>
         </section>
 
         {/* About: auto height, will grow */}
