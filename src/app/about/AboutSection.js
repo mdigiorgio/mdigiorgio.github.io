@@ -14,9 +14,9 @@ import {
 } from '@mui/material';
 import { Star } from '@mui/icons-material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import ItalianFlagIcon from '../components/flags/ItalianFlagIcon';
-import SpainFlagIcon from '../components/flags/SpainFlagIcon';
-import UKFlagIcon from '../components/flags/UKFlagIcon';
+import ItalianFlagIcon from '@/components/flags/ItalianFlagIcon';
+import SpainFlagIcon from '@/components/flags/SpainFlagIcon';
+import UKFlagIcon from '@/components/flags/UKFlagIcon';
 
 function EducationGroup({ logo, href, name, location, courses }) {
   return (

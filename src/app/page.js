@@ -2,17 +2,20 @@
 
 import React, { useState } from 'react';
 import {
+  Box,
   IconButton,
   Menu,
   MenuItem,
-  Box,
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import FadeInSection from './components/FadeInSection'; // your fade component
-import ReviewsContent from './reviews/ReviewsContent.js';
+
+// Sections
 import AboutSection from './about/AboutSection.js';
+import GallerySection from './gallery/GallerySection.js';
+import FadeInSection from '@/components/FadeInSection'; // your fade component
+import ReviewsContent from './reviews/ReviewsContent.js';
 
 export default function LandingPage() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -21,7 +24,7 @@ export default function LandingPage() {
   const sections = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
-    { id: 'stories', label: 'Stories' },
+    { id: 'gallery', label: 'Gallery' },
     { id: 'reviews', label: 'Reviews' },
   ];
 
@@ -115,7 +118,7 @@ export default function LandingPage() {
           </FadeInSection>
         </section>
 
-        {/* Stories: auto height */}
+        {/* Gallery: auto height */}
         <section
           id="stories"
           style={{
@@ -126,7 +129,7 @@ export default function LandingPage() {
           }}
         >
           <FadeInSection>
-            <Typography variant="h3">Stories</Typography>
+            <GallerySection />
           </FadeInSection>
         </section>
 

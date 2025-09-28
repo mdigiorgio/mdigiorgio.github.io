@@ -15,7 +15,7 @@ import { Masonry } from '@mui/lab';
 import { supabase } from '@/lib/supabaseClient';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import FadeInSection from '../components/FadeInSection';
+import FadeInSection from '@/components/FadeInSection';
 
 // Single review card
 function ReviewItem({ review }) {
@@ -100,9 +100,6 @@ function ReviewsList({ reviews, loading, error }) {
 
   return (
     <Box sx={{ mt: 2, width: '100%' }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
-        Recent Reviews
-      </Typography>
       {error && <Typography color="error">{error}</Typography>}
       <Masonry
         columns={{ xs: 1, sm: 2, md: 2 }} // responsive columns
@@ -246,10 +243,16 @@ export default function ReviewsContent() {
 
   return (
     <>
+      <Box sx={{ width: '100%', maxWidth: 1000, mx: 'auto', mt: 4 }}>
+        <Typography variant="h3" align="center">
+          What people think
+        </Typography>
+        <ReviewsList reviews={reviews} loading={loading} error={error} />
+      </Box>
       {/* Auth / form */}
       {!session ? (
-        <Box sx={{ width: '100%', maxWidth: 1000, mx: 'auto', mt: 4 }}>
-          <Typography variant="h5" sx={{ mb: 2 }}>
+        <Box sx={{ width: '100%', maxWidth: 400, mx: 'auto', mt: 4 }}>
+          <Typography variant="h5" align="center">
             Log in to leave a review
           </Typography>
           <Auth
@@ -258,7 +261,6 @@ export default function ReviewsContent() {
             providers={['google']}
             onlyThirdPartyProviders={true}
           />
-          <ReviewsList reviews={reviews} loading={loading} error={error} />
         </Box>
       ) : (
         <>
@@ -311,7 +313,7 @@ export default function ReviewsContent() {
                   onChange={(e, newValue) => setStars(newValue || 1)}
                 />
                 <TextField
-                  label="Write your review"
+                  label="Leave a review"
                   multiline
                   minRows={3}
                   value={message}
@@ -324,8 +326,6 @@ export default function ReviewsContent() {
               </Stack>
             </Box>
           </Box>
-
-          <ReviewsList reviews={reviews} loading={loading} error={error} />
         </>
       )}
       {/* Policy Notice */}

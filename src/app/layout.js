@@ -9,9 +9,8 @@ export const metadata = {
   title: 'Michele Underwater',
   description: 'Divemaster profile and contents',
   icons: {
-    icon: '/tab-icon.png',
-    shortcut: '/tab-icon.png',
-    apple: '/tab-icon.png',
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
 };
 
