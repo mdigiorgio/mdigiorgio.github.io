@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { Masonry } from '@mui/lab';
 import { supabase } from '@/lib/supabaseClient';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
@@ -18,59 +19,63 @@ import FadeInSection from '../components/FadeInSection';
 
 // Single review card
 function ReviewItem({ review }) {
-  const [expanded, setExpanded] = React.useState(false);
-
   const truncatedContent =
     review.content.length > 200 && !expanded
       ? review.content.slice(0, 200) + '…'
       : review.content;
 
   return (
-    <FadeInSection>
-      <Box
-        sx={{
-          border: '1px solid #e0e0e0',
-          p: 2,
-          borderRadius: 2,
-          backgroundColor: 'white',
-          boxShadow: 1,
-        }}
-      >
-        {/* Header */}
-        <Stack direction="row" spacing={2} alignItems="center">
-          <Avatar
-            src={review.avatar_url}
-            alt={review.name}
-            sx={{ width: 48, height: 48 }}
-          />
-          <Box>
-            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-              {review.name}
-            </Typography>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Rating value={review.stars} readOnly size="small" />
-              <Typography variant="caption" color="text.secondary">
-                {new Date(review.inserted_at).toLocaleDateString()}
+    <Box sx={{ width: '100%' }}>
+      <FadeInSection>
+        <Box
+          sx={{
+            border: '1px solid #e0e0e0',
+            p: 2,
+            borderRadius: 2,
+            backgroundColor: 'white',
+            boxShadow: 1,
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
+          {/* Header */}
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Avatar
+              src={review.avatar_url}
+              alt={review.name}
+              sx={{ width: 48, height: 48 }}
+            />
+            <Box
+              sx={{
+                width: '100%',
+                boxSizing: 'border-box',
+              }}
+            >
+              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                {review.name}
               </Typography>
-            </Stack>
-          </Box>
-        </Stack>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Rating value={review.stars} readOnly size="small" />
+                <Typography variant="caption" color="text.secondary">
+                  {new Date(review.inserted_at).toLocaleDateString()}
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
 
-        {/* Content */}
-        <Typography sx={{ mt: 2, whiteSpace: 'pre-line' }}>
-          {truncatedContent}
-        </Typography>
-        {review.content.length > 200 && (
-          <Button
-            size="small"
-            sx={{ mt: 1, textTransform: 'none' }}
-            onClick={() => setExpanded(!expanded)}
+          {/* Content */}
+          <Typography
+            sx={{
+              mt: 2,
+              whiteSpace: 'pre-line',
+              wordBreak: 'break-word', // keep long words inside box
+            }}
           >
-            {expanded ? 'Read less' : 'Read more'}
-          </Button>
-        )}
-      </Box>
-    </FadeInSection>
+            {review.content}
+          </Typography>
+        </Box>
+      </FadeInSection>
+    </Box>
   );
 }
 
@@ -94,14 +99,25 @@ function ReviewsList({ reviews, loading, error }) {
   }
 
   return (
-    <Box sx={{ mt: 2 }}>
-      <Typography variant="h6">Recent Reviews</Typography>
+    <Box sx={{ mt: 2, width: '100%' }}>
+      <Typography variant="h6" sx={{ mb: 2 }}>
+        Recent Reviews
+      </Typography>
       {error && <Typography color="error">{error}</Typography>}
-      <Stack spacing={2} sx={{ mt: 2 }}>
+      <Masonry
+        columns={{ xs: 1, sm: 2, md: 2 }} // responsive columns
+        spacing={2} // gap between items
+        // animate repositioning
+        defaultHeight={450}
+        defaultColumns={2}
+        defaultSpacing={2}
+        // optional CSS to smooth flicker
+        style={{ transition: 'all 0.3s ease' }}
+      >
         {reviews.map((r) => (
           <ReviewItem key={r.id} review={r} />
         ))}
-      </Stack>
+      </Masonry>
     </Box>
   );
 }
@@ -230,25 +246,9 @@ export default function ReviewsContent() {
 
   return (
     <>
-      {/* Policy Notice */}
-      <Box
-        sx={{
-          backgroundColor: '#fff3cd',
-          border: '1px solid #ffeeba',
-          borderRadius: 1,
-          padding: 2,
-          mb: 2,
-        }}
-      >
-        <Typography variant="body2" sx={{ color: '#856404' }}>
-          By submitting a review you agree to our community guidelines.
-          Non-inclusive, racist or violent content will be removed by the administrator.
-        </Typography>
-      </Box>
-
       {/* Auth / form */}
       {!session ? (
-        <Box sx={{ width: '100%', maxWidth: 400, mx: 'auto', mt: 4 }}>
+        <Box sx={{ width: '100%', maxWidth: 1000, mx: 'auto', mt: 4 }}>
           <Typography variant="h5" sx={{ mb: 2 }}>
             Log in to leave a review
           </Typography>
@@ -256,6 +256,7 @@ export default function ReviewsContent() {
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
             providers={['google']}
+            onlyThirdPartyProviders={true}
           />
           <ReviewsList reviews={reviews} loading={loading} error={error} />
         </Box>
@@ -327,6 +328,23 @@ export default function ReviewsContent() {
           <ReviewsList reviews={reviews} loading={loading} error={error} />
         </>
       )}
+      {/* Policy Notice */}
+      <Box
+        sx={{
+          backgroundColor: '#fff3cd',
+          border: '1px solid #ffeeba',
+          borderRadius: 1,
+          padding: 2,
+          mx: 'auto',
+          maxWidth: 1000,
+        }}
+      >
+        <Typography variant="body2" sx={{ color: '#856404' }}>
+          By submitting a review you agree to our community guidelines.
+          Non-inclusive, racist or violent content will be removed by the administrator.
+        </Typography>
+      </Box>
+
     </>
   );
 }

@@ -6,8 +6,13 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata = {
-  title: "Michele Di Giorgio - PADI Divemaster",
-  description: "Personal website of Michele Di Giorgio, PADI Divemaster",
+  title: 'Michele Underwater',
+  description: 'Divemaster profile and contents',
+  icons: {
+    icon: '/tab-icon.png',
+    shortcut: '/tab-icon.png',
+    apple: '/tab-icon.png',
+  },
 };
 
 export default function RootLayout({ children }) {

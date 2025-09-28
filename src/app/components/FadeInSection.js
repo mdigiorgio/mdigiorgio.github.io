@@ -31,7 +31,6 @@ export default function FadeInSection({ children, threshold = 0.2 }) {
       ref={ref}
       sx={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0px)' : 'translateY(30px)',
         transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
       }}
     >
