@@ -109,7 +109,7 @@ export default function LandingPage() {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              zIndex: -1,
+              zIndex: 0,
             }}
           >
             <source src="/videos/diving.mp4" type="video/mp4" />
@@ -120,6 +120,7 @@ export default function LandingPage() {
           <Box
             sx={{
               position: 'relative',
+              zIndex: 1,
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
@@ -145,7 +146,6 @@ export default function LandingPage() {
           id="about"
           style={{
             minHeight: '100vh', // at least full viewport but can grow
-            background: '#fce4ec',
             padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
@@ -157,10 +157,9 @@ export default function LandingPage() {
 
         {/* Gallery: auto height */}
         <section
-          id="stories"
+          id="gallery"
           style={{
             minHeight: '100vh',
-            background: '#fff9c4',
             padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
@@ -175,7 +174,6 @@ export default function LandingPage() {
           id="reviews"
           style={{
             minHeight: '100vh', // at least full viewport
-            background: '#c8e6c9',
             padding: '4rem 0',
             scrollMarginTop: '80px',
           }}

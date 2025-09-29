@@ -1,9 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Box } from '@mui/material';
 import ThemeWrapper from "@/components/ThemeWrapper";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata = {
   title: 'Michele Underwater',
@@ -17,9 +15,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
 	<html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-screen`}>
+      <body>
         <ThemeWrapper>
-          {children} {/* now children includes <main> from page components */}
+          <Box
+            sx={{
+              minHeight: '100vh',
+              backgroundImage: 'url("/backgrounds/ocean-texture.jpg")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed',
+            }}
+          >
+            {children} {/* now children includes <main> from page components */}
+          </Box>
         </ThemeWrapper>
         <footer className="text-center text-gray-500 text-sm p-4">
           © 2025 Michele Di Giorgio. All rights reserved. Stories, photos and content may not be reused without permission.

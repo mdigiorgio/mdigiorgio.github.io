@@ -1,18 +1,33 @@
-'use client'; // <-- marks this as a client component
+'use client';
 
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
-import { Geist } from 'next/font/google';
+import { Geist, Montserrat } from 'next/font/google';
 
-const geistSans = Geist({ subsets: ['latin'] });
+// Examples of nice pairings:
+const headingFont = Montserrat({ weight: ['400', '600', '700'], subsets: ['latin'] });
+const bodyFont = Geist({ subsets: ['latin'] });
 
 const oceanTheme = createTheme({
   palette: {
     primary: { main: '#0277bd' },
     secondary: { main: '#80deea' },
-    background: { default: '#e0f7fa' },
+    background: { default: '#ffffff' },
   },
   typography: {
-    fontFamily: geistSans.style.fontFamily,
+    fontFamily: bodyFont.style.fontFamily,
+    body1: {
+      fontSize: '1.1rem',
+      lineHeight: 1.7,
+    },
+    body2: {
+      fontSize: '1rem',
+      lineHeight: 1.6,
+    },
+    h1: { fontFamily: headingFont.style.fontFamily },
+    h2: { fontFamily: headingFont.style.fontFamily },
+    h3: { fontFamily: headingFont.style.fontFamily },
+    h4: { fontFamily: headingFont.style.fontFamily },
+    h5: { fontFamily: headingFont.style.fontFamily },
   },
 });
 
