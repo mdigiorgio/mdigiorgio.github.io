@@ -12,18 +12,13 @@ import {
   Typography,
 } from '@mui/material';
 import { Masonry } from '@mui/lab';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase, getAuthOptions } from '@/lib/supabaseClient';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import FadeInSection from '@/components/FadeInSection';
 
 // Single review card
 function ReviewItem({ review }) {
-  const truncatedContent =
-    review.content.length > 200 && !expanded
-      ? review.content.slice(0, 200) + '…'
-      : review.content;
-
   return (
     <Box sx={{ width: '100%' }}>
       <FadeInSection>
@@ -260,6 +255,7 @@ export default function ReviewsContent() {
             appearance={{ theme: ThemeSupa }}
             providers={['google']}
             onlyThirdPartyProviders={true}
+            redirectTo={getAuthOptions().redirectTo}
           />
         </Box>
       ) : (
