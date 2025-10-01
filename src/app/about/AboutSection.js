@@ -259,7 +259,7 @@ export default function AboutSection() {
 
         <Grid container spacing={4} alignItems="flex-start">
           {/* Left: Education */}
-          <Grid item xs={12} md={7}>
+          <Grid>
             <Card variant="outlined" sx={{ ...cardStyle }}>
               <CardContent>
                 <Typography variant="h5" gutterBottom>
@@ -275,7 +275,7 @@ export default function AboutSection() {
           </Grid>
 
           {/* Right: Languages + Work */}
-          <Grid item xs={12} md={5}>
+          <Grid>
             <LanguagesCard />
             {work.map((w, idx) => (
               <WorkCard key={idx} {...w} />
