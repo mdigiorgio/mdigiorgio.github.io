@@ -9,8 +9,8 @@ import {
   Link,
   Stack,
   Typography,
-  Grid,
 } from '@mui/material';
+import { Masonry } from '@mui/lab';
 import { Star } from '@mui/icons-material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ItalianFlagIcon from '@/components/flags/ItalianFlagIcon';
@@ -118,7 +118,7 @@ function StoryCard() {
           <br />
           <br />
           Since I was a small kid, I have always had a great feeling with the
-          water. 💦 While on holiday with my family by the seaside, I would
+          water. 🌊 While on holiday with my family by the seaside, I would
           spend <strong>hours and hours in the water</strong>, refusing floats
           and swimming as naturally as possible.
           <br />
@@ -144,7 +144,7 @@ function StoryCard() {
           <br />
           In December 2023, I returned to Koh Tao to become a{' '}
           <strong>Rescue Diver</strong>. Six months later I started my{' '}
-          <strong>Divemaster internship</strong> and finally became a Pro. 🤿
+          <strong>Divemaster internship</strong> and finally became a Pro.
           <br />
           <br />
           These experiences grew my passion for{' '}
@@ -153,7 +153,7 @@ function StoryCard() {
           future generations.
           <br />
           <br />
-          ✨ <em>Come dive with me and get inspired!</em>
+          🤿 <em>Come dive with me and get inspired!</em>
         </Typography>
       </CardContent>
     </Card>
@@ -253,35 +253,40 @@ export default function AboutSection() {
   ];
 
   return (
-    <Box id="about" sx={{ py: 6 }}>
+    <Box id="about" sx={{ py: 4 }}>
+      <Typography variant="h3" align="center" sx={{ mb: 4 }}>
+        About Me
+      </Typography>
+
       <Container maxWidth="lg">
         <StoryCard />
 
-        <Grid container spacing={4} alignItems="flex-start">
-          {/* Left: Education */}
-          <Grid>
-            <Card variant="outlined" sx={{ ...cardStyle }}>
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  Education & Certifications
-                </Typography>
-                <Stack spacing={2}>
-                  {education.map((e, idx) => (
-                    <EducationCard key={idx} {...e} />
-                  ))}
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
+        {/* Education & Certifications */}
+        <Card variant="outlined" sx={{ mb: 6, ...cardStyle }}>
+          <CardContent>
+            <Typography variant="h5" gutterBottom>
+              Education & Certifications
+            </Typography>
+            <Masonry columns={{ xs: 1, sm: 2, md: 2 }} spacing={2}>
+              {education.map((e, idx) => (
+                <EducationCard key={idx} {...e} />
+              ))}
+            </Masonry>
+          </CardContent>
+        </Card>
 
-          {/* Right: Languages + Work */}
-          <Grid>
-            <LanguagesCard />
+        {/* Work + Languages Row */}
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={4}>
+          <Box flex={1}>
             {work.map((w, idx) => (
               <WorkCard key={idx} {...w} />
             ))}
-          </Grid>
-        </Grid>
+          </Box>
+
+          <Box flex={1}>
+            <LanguagesCard />
+          </Box>
+        </Stack>
       </Container>
     </Box>
   );

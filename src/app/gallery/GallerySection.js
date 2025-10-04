@@ -40,11 +40,11 @@ export default function GallerySection() {
 
   return (
     <Box id="gallery" sx={{ py: 6 }}>
-      <Container maxWidth="lg">
-        <Typography variant="h3" gutterBottom>
-          Gallery
-        </Typography>
+      <Typography variant="h3" align="center" sx={{ mb: 4 }}>
+        Gallery
+      </Typography>
 
+      <Container maxWidth="lg">
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}>
             <CircularProgress />
