@@ -145,7 +145,6 @@ export default function LandingPage() {
         <section
           id="about"
           style={{
-            minHeight: '100vh', // at least full viewport but can grow
             padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
@@ -159,7 +158,6 @@ export default function LandingPage() {
         <section
           id="gallery"
           style={{
-            minHeight: '100vh',
             padding: '4rem 0',
             scrollMarginTop: '80px',
           }}
@@ -173,7 +171,6 @@ export default function LandingPage() {
         <section
           id="reviews"
           style={{
-            minHeight: '100vh', // at least full viewport
             padding: '4rem 0',
             scrollMarginTop: '80px',
           }}

@@ -6,8 +6,12 @@ import {
   Container,
   CircularProgress,
   Grid,
-  Typography
+  Typography,
 } from '@mui/material';
+
+// We define the uniform sizing as a flex-basis value.
+// 30% allows for 3 videos per row with some spacing between them.
+const FLEX_BASIS_SIZE = '30%';
 
 export default function GallerySection() {
   const [videos, setVideos] = useState([]);
@@ -41,7 +45,7 @@ export default function GallerySection() {
   return (
     <Box id="gallery" sx={{ py: 6 }}>
       <Typography variant="h3" align="center" sx={{ mb: 4 }}>
-        Gallery
+        Gallery 🎬
       </Typography>
 
       <Container maxWidth="lg">
@@ -50,24 +54,44 @@ export default function GallerySection() {
             <CircularProgress />
           </Box>
         ) : (
-          <Grid container spacing={4}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 4, // Use the 'gap' property for consistent spacing
+            }}
+          >
             {videos.map((video, idx) => (
-              <Grid item xs={12} sm={6} md={4} key={idx}>
+              <Box
+                key={idx}
+                sx={{
+                  // 1. Force all items to take the EXACT same width (30%)
+                  flexBasis: { xs: '100%', sm: '45%', md: FLEX_BASIS_SIZE },
+                  flexGrow: 0,
+                  flexShrink: 0,
+
+                  // 2. Set internal layout to vertical
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
                 <Box
                   sx={{
                     position: 'relative',
+                    width: '100%', // Takes 100% of the calculated flex-basis width
+                    // 3. Guarantee 16:9 Aspect Ratio
                     paddingBottom: '56.25%',
-                    height: 0,
                     borderRadius: 2,
                     overflow: 'hidden',
-                    boxShadow: 3,
+                    boxShadow: 1
                   }}
                 >
                   <iframe
-                    src={`https://www.youtube.com/embed/${video.snippet.resourceId.videoId}`}
+                    src={`https://www.youtube.com/embed/${video.snippet.resourceId.videoId}?rel=0`}
                     title={video.snippet.title}
                     frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     style={{
                       position: 'absolute',
@@ -75,6 +99,7 @@ export default function GallerySection() {
                       left: 0,
                       width: '100%',
                       height: '100%',
+                      objectFit: 'cover',
                     }}
                   />
                 </Box>
@@ -84,9 +109,9 @@ export default function GallerySection() {
                 >
                   {video.snippet.title}
                 </Typography>
-              </Grid>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         )}
       </Container>
     </Box>
