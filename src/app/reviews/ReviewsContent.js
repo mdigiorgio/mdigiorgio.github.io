@@ -19,6 +19,10 @@ import { ThemeSupa } from '@supabase/auth-ui-shared';
 import FadeInSection from '@/components/FadeInSection';
 import { useRouter } from 'next/navigation';
 
+const CARD_GRADIENT_START = '#e3f2fd'; // Pronounced light blue
+const CARD_GRADIENT_END = '#bbdefb'; // Medium light blue end point
+const BORDER_COLOR = '#4fc3f7'; // Light Blue 500
+
 function ReviewItem({ review }) {
   return (
     <FadeInSection>
@@ -26,8 +30,8 @@ function ReviewItem({ review }) {
         sx={{
           p: 2.5,
           borderRadius: 2,
-          background: 'linear-gradient(145deg, #e1f5fe, #f0f8ff)',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+          background: `linear-gradient(145deg, ${CARD_GRADIENT_START}, ${CARD_GRADIENT_END})`,
+          boxShadow: '0 2px 6px rgba(0,0,0,0.08)', // Soften shadow
           transition: 'all 0.3s ease',
           position: 'relative',
           zIndex: 0,
@@ -46,6 +50,7 @@ function ReviewItem({ review }) {
               width: 48,
               height: 48,
               zIndex: 2,
+              border: `2px solid ${BORDER_COLOR}`, // Thematic border on avatar
             }}
           />
           <Box sx={{ flex: 1 }}>
