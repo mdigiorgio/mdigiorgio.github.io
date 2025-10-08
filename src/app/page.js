@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import {
   Box,
-  IconButton,
-  Menu,
-  MenuItem,
+  Toolbar,
   Typography,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+
+import NavBar from '@/components/NavBar.js';
 
 // Sections
 import AboutSection from './about/AboutSection.js';
@@ -21,68 +21,14 @@ export default function LandingPage() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const sections = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'reviews', label: 'Reviews' },
-  ];
-
-  const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleScroll = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    handleClose();
-  };
-
   return (
     <Box>
-      {/* Fixed burger button with toggle */}
-      <IconButton
-        onClick={(e) => (open ? handleClose() : handleMenuClick(e))}
-        sx={{
-          position: 'fixed',
-          top: 16,
-          left: 16,
-          zIndex: 1500,
-          backgroundColor: 'white',
-          borderRadius: '50%',
-          boxShadow: 3,
-          '&:hover': { backgroundColor: 'grey.100' },
-        }}
-      >
-        {open ? <CloseIcon /> : <MenuIcon />}
-      </IconButton>
+      {/* Render the responsive NavBar */}
+      <NavBar />
 
-      {/* Menu under the button */}
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        PaperProps={{
-          sx: { mt: 1, boxShadow: 3 },
-        }}
-      >
-        {sections.map((sec) => (
-          <MenuItem key={sec.id} onClick={() => handleScroll(sec.id)}>
-            {sec.label}
-          </MenuItem>
-        ))}
-      </Menu>
+      {/* Add required spacing below the fixed AppBar */}
+      <Toolbar />
+      {/* The empty toolbar will reserve vertical space so the content isn't hidden by the AppBar */}
 
       {/* Sections */}
       <Box component="main">

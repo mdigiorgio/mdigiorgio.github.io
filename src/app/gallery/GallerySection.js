@@ -103,12 +103,6 @@ export default function GallerySection() {
                     }}
                   />
                 </Box>
-                <Typography
-                  variant="subtitle2"
-                  sx={{ mt: 1, textAlign: 'center' }}
-                >
-                  {video.snippet.title}
-                </Typography>
               </Box>
             ))}
           </Box>
