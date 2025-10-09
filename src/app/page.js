@@ -16,6 +16,8 @@ import AboutSection from './about/AboutSection.js';
 import GallerySection from './gallery/GallerySection.js';
 import ReviewsContent from './reviews/ReviewsContent.js';
 
+const SECTION_OFFSET = '80px';
+
 export default function LandingPage() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -87,7 +89,7 @@ export default function LandingPage() {
           id="about"
           style={{
             padding: '4rem 0',
-            scrollMarginTop: '80px',
+            scrollMarginTop: SECTION_OFFSET,
           }}
         >
           <AboutSection />
@@ -98,7 +100,7 @@ export default function LandingPage() {
           id="gallery"
           style={{
             padding: '4rem 0',
-            scrollMarginTop: '80px',
+            scrollMarginTop: SECTION_OFFSET,
           }}
         >
           <GallerySection />
@@ -109,7 +111,7 @@ export default function LandingPage() {
           id="reviews"
           style={{
             padding: '4rem 0',
-            scrollMarginTop: '80px',
+            scrollMarginTop: SECTION_OFFSET,
           }}
         >
             <ReviewsContent />
