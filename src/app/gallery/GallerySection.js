@@ -43,7 +43,7 @@ export default function GallerySection() {
   }, [API_KEY, UPLOADS_PLAYLIST_ID]);
 
   return (
-    <Box id="gallery" sx={{ py: 6 }}>
+    <Box id="gallery">
       <Typography variant="h3" align="center" sx={{ mb: 4 }}>
         Gallery 🎬
       </Typography>

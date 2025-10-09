@@ -16,7 +16,6 @@ import { Masonry } from '@mui/lab';
 import { supabase, getAuthOptions } from '@/lib/supabaseClient';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import FadeInSection from '@/components/FadeInSection';
 import { useRouter } from 'next/navigation';
 
 const CARD_GRADIENT_START = '#e3f2fd'; // Pronounced light blue
@@ -25,61 +24,59 @@ const BORDER_COLOR = '#4fc3f7'; // Light Blue 500
 
 function ReviewItem({ review }) {
   return (
-    <FadeInSection>
-      <Box
+    <Box
+      sx={{
+        p: 2.5,
+        borderRadius: 2,
+        background: `linear-gradient(145deg, ${CARD_GRADIENT_START}, ${CARD_GRADIENT_END})`,
+        boxShadow: '0 2px 6px rgba(0,0,0,0.08)', // Soften shadow
+        transition: 'all 0.3s ease',
+        position: 'relative',
+        zIndex: 0,
+        '&:hover': {
+          transform: 'translateY(-4px)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        },
+      }}
+    >
+      {/* Header */}
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Avatar
+          src={review.avatar_url}
+          alt={review.name}
+          sx={{
+            width: 48,
+            height: 48,
+            zIndex: 2,
+            border: `2px solid ${BORDER_COLOR}`, // Thematic border on avatar
+          }}
+        />
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+            {review.name}
+          </Typography>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Rating value={review.stars} readOnly size="small" />
+            <Typography variant="caption" color="text.secondary">
+              {new Date(review.inserted_at).toLocaleDateString()}
+            </Typography>
+          </Stack>
+        </Box>
+      </Stack>
+
+      {/* Content */}
+      <Typography
         sx={{
-          p: 2.5,
-          borderRadius: 2,
-          background: `linear-gradient(145deg, ${CARD_GRADIENT_START}, ${CARD_GRADIENT_END})`,
-          boxShadow: '0 2px 6px rgba(0,0,0,0.08)', // Soften shadow
-          transition: 'all 0.3s ease',
-          position: 'relative',
-          zIndex: 0,
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-          },
+          mt: 2,
+          whiteSpace: 'pre-line',
+          wordBreak: 'break-word',
+          color: '#000', // solid black
+          lineHeight: 1.6,
         }}
       >
-        {/* Header */}
-        <Stack direction="row" spacing={2} alignItems="center">
-          <Avatar
-            src={review.avatar_url}
-            alt={review.name}
-            sx={{
-              width: 48,
-              height: 48,
-              zIndex: 2,
-              border: `2px solid ${BORDER_COLOR}`, // Thematic border on avatar
-            }}
-          />
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-              {review.name}
-            </Typography>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Rating value={review.stars} readOnly size="small" />
-              <Typography variant="caption" color="text.secondary">
-                {new Date(review.inserted_at).toLocaleDateString()}
-              </Typography>
-            </Stack>
-          </Box>
-        </Stack>
-
-        {/* Content */}
-        <Typography
-          sx={{
-            mt: 2,
-            whiteSpace: 'pre-line',
-            wordBreak: 'break-word',
-            color: '#000', // solid black
-            lineHeight: 1.6,
-          }}
-        >
-          {review.content}
-        </Typography>
-      </Box>
-    </FadeInSection>
+        {review.content}
+      </Typography>
+    </Box>
   );
 }
 
@@ -209,7 +206,7 @@ export default function ReviewsContent() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 6 }}>
+    <Container maxWidth="md">
       <Typography variant="h3" align="center" sx={{ mb: 6 }}>
         What people think
       </Typography>

@@ -14,7 +14,6 @@ import NavBar from '@/components/NavBar.js';
 // Sections
 import AboutSection from './about/AboutSection.js';
 import GallerySection from './gallery/GallerySection.js';
-import FadeInSection from '@/components/FadeInSection'; // your fade component
 import ReviewsContent from './reviews/ReviewsContent.js';
 
 export default function LandingPage() {
@@ -25,10 +24,6 @@ export default function LandingPage() {
     <Box>
       {/* Render the responsive NavBar */}
       <NavBar />
-
-      {/* Add required spacing below the fixed AppBar */}
-      <Toolbar />
-      {/* The empty toolbar will reserve vertical space so the content isn't hidden by the AppBar */}
 
       {/* Sections */}
       <Box component="main">
@@ -95,9 +90,7 @@ export default function LandingPage() {
             scrollMarginTop: '80px',
           }}
         >
-          <FadeInSection>
-            <AboutSection />
-          </FadeInSection>
+          <AboutSection />
         </section>
 
         {/* Gallery: auto height */}
@@ -108,9 +101,7 @@ export default function LandingPage() {
             scrollMarginTop: '80px',
           }}
         >
-          <FadeInSection>
-            <GallerySection />
-          </FadeInSection>
+          <GallerySection />
         </section>
 
         {/* Reviews: auto height */}
@@ -121,9 +112,7 @@ export default function LandingPage() {
             scrollMarginTop: '80px',
           }}
         >
-          <FadeInSection>
             <ReviewsContent />
-          </FadeInSection>
         </section>
       </Box>
     </Box>

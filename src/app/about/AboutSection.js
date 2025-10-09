@@ -253,7 +253,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <Box id="about" sx={{ py: 4 }}>
+    <Box id="about">
       <Typography variant="h3" align="center" sx={{ mb: 4 }}>
         About Me
       </Typography>
