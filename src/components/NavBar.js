@@ -100,7 +100,6 @@ export default function NavBar() {
     };
   }, [activeSection]); // Depend on activeSection to ensure function has current state
 
-  // --- RENDER ---
   return (
     <Box>
       <AppBar
@@ -109,6 +108,7 @@ export default function NavBar() {
         sx={{
           background: 'linear-gradient(135deg, #004d70, #0096C7, #a2d2ff)',
           boxShadow: 6,
+          height: { xs: 56, sm: APPBAR_HEIGHT }
         }}
       >
         <Toolbar>
@@ -118,7 +118,7 @@ export default function NavBar() {
               src="/images/m-mask-logo.png"
               alt="Michele's Dive Logo"
               sx={{
-                  height: LOGO_HEIGHT,
+                  height: { xs: 42, sm: LOGO_HEIGHT },
                   width: 'auto',
                   mr: 2,
               }}
@@ -133,7 +133,7 @@ export default function NavBar() {
                 sx={{
                   // Base styles
                   color: '#fff',
-                  fontSize: { xs: '0.75rem', sm: '1.1rem' },
+                  fontSize: { xs: '0.7rem', sm: '1.1rem' },
                   fontWeight: 600,
                   px: { xs: 1, sm: 1.5 },
 
