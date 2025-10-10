@@ -208,7 +208,7 @@ export default function ReviewsContent() {
   return (
     <Container maxWidth="md">
       <Typography variant="h3" align="center" sx={{ mb: 6 }}>
-        What people think
+        What My Divers Are Saying 💬
       </Typography>
 
       <ReviewsList reviews={reviews} loading={loading} error={error} />

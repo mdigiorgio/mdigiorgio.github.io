@@ -13,9 +13,13 @@ import {
 import { Masonry } from '@mui/lab';
 import { Star } from '@mui/icons-material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import ItalianFlagIcon from '@/components/flags/ItalianFlagIcon';
-import SpainFlagIcon from '@/components/flags/SpainFlagIcon';
-import UKFlagIcon from '@/components/flags/UKFlagIcon';
+
+// Define the data array for languages outside the component for cleaner JSX
+const languages = [
+  { flag: '🇮🇹', name: 'Italian', level: 'Native' },
+  { flag: '🇬🇧', name: 'English', level: 'Fluent' },
+  { flag: '🇪🇸', name: 'Spanish', level: 'Fluent' },
+];
 
 const cardStyle = {
   background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f7fa 100%)',
@@ -113,24 +117,24 @@ function StoryCard() {
             textAlign: 'left',
           }}
         >
-          <strong>Hi, I am Michele</strong>, I am an Italian PADI Divemaster
-          with 180+ dives across 7 countries.
+          Hi, I am <strong>Michele</strong>, I am an Italian Divemaster
+          with 200+ dives across 7 countries.
           <br />
           <br />
           Since I was a small kid, I have always had a great feeling with the
           water. 🌊 While on holiday with my family by the seaside, I would
           spend <strong>hours and hours in the water</strong>, refusing floats
-          and swimming as naturally as possible.
+          and swimming for as long as possible.
           <br />
           <br />
           Growing up in a small Sicilian village in the{' '}
-          <strong>Parco dei Nebrodi</strong>, I could not swim as a sport — but
-          my love for the ocean only grew.
+          Parco dei Nebrodi, while competitive swimming was not accssible, my
+          innate love for the ocean only grew.
           <br />
           <br />
           In 2018, during a trip to Indonesia with my dear friend Angelo, we
           tried <strong>scuba diving for the first time</strong>. On our first
-          dive we saw turtles, an octopus, a white-banded sea krait and
+          dive we saw turtles, an octopus, a white-banded sea snake and
           vibrant marine life. 🐢🐙 That day we promised ourselves to get
           certified.
           <br />
@@ -142,7 +146,7 @@ function StoryCard() {
           to reach a professional level.
           <br />
           <br />
-          In December 2023, I returned to Koh Tao to become a{' '}
+          In December 2024, I returned to Koh Tao to become a{' '}
           <strong>Rescue Diver</strong>. Six months later I started my{' '}
           <strong>Divemaster internship</strong> and finally became a Pro.
           <br />
@@ -168,18 +172,18 @@ function LanguagesCard() {
           Languages
         </Typography>
         <Stack spacing={1}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <ItalianFlagIcon sx={{ fontSize: '30px' }} />
-            <span>Italian (Native)</span>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <UKFlagIcon sx={{ fontSize: '30px' }} />
-            <span>English (Fluent)</span>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <SpainFlagIcon sx={{ fontSize: '30px' }} />
-            <span>Spanish (Fluent)</span>
-          </Box>
+          {languages.map((lang) => (
+            <Box
+              key={lang.name}
+              sx={{ display: 'flex', alignItems: 'center', gap: 2 }}
+            >
+              <Typography>
+                <Box component="span" sx={{ fontSize: '1.2rem', mr: 1 }}>
+                  {lang.flag} {lang.name} ({lang.level})
+                </Box>
+              </Typography>
+            </Box>
+          ))}
         </Stack>
       </CardContent>
     </Card>
