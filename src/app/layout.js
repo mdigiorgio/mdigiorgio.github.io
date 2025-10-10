@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Box } from '@mui/material';
 import ThemeWrapper from "@/components/ThemeWrapper";
+import Footer from '@/components/Footer';
 
 
 export const metadata = {
@@ -30,9 +31,8 @@ export default function RootLayout({ children }) {
             {children} {/* now children includes <main> from page components */}
           </Box>
         </ThemeWrapper>
-        <footer className="text-center text-gray-500 text-sm p-4">
-          © 2025 Michele Di Giorgio. All rights reserved. Stories, photos and content may not be reused without permission.
-        </footer>
+
+        <Footer />
       </body>
     </html>
   );

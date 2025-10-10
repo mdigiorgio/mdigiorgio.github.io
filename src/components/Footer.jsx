@@ -1,0 +1,59 @@
+import React from 'react';
+import {
+  Box,
+  Container,
+  IconButton,
+  Typography
+} from '@mui/material';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+export default function Footer() {
+  return (
+    <Box
+      component="footer"
+      sx={{
+        bgcolor: '#757575',
+        color: 'white',
+        py: 4,
+        borderTop: '1px solid #9e9e9e',
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2,
+          }}
+        >
+
+          <IconButton
+            aria-label="Instagram link"
+            href="https://www.instagram.com/michele_airdg"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+                color: '#E1306C',
+            }}
+          >
+            <InstagramIcon fontSize="large" />
+          </IconButton>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'rgba(255, 255, 255, 0.7)',
+              textAlign: 'center',
+            }}
+          >
+            © {new Date().getFullYear()} Michele Di Giorgio. All rights reserved.
+            <br/>
+            Stories, photos and content may not be reused without permission.
+          </Typography>
+
+        </Box>
+      </Container>
+    </Box>
+  );
+}
