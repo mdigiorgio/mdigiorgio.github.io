@@ -1,22 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import {
-  Box,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useState } from "react";
+import { Box, Toolbar, Typography } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
-import NavBar from '@/components/NavBar.js';
+import NavBar from "@/components/NavBar.js";
 
 // Sections
-import AboutSection from './about/AboutSection.js';
-import GallerySection from './gallery/GallerySection.js';
-import ReviewsContent from './reviews/ReviewsContent.js';
+import AboutSection from "./about/AboutSection.js";
+import GallerySection from "./gallery/GallerySection.js";
+import ReviewsContent from "./reviews/ReviewsContent.js";
 
-const SECTION_OFFSET = '80px';
+const SECTION_OFFSET = "80px";
 
 export default function LandingPage() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,10 +29,10 @@ export default function LandingPage() {
         <section
           id="home"
           style={{
-            position: 'relative',
-            height: '100vh', // full screen hero
-            width: '100%',
-            overflow: 'hidden',
+            position: "relative",
+            height: "100vh", // full screen hero
+            width: "100%",
+            overflow: "hidden",
           }}
         >
           {/* Background video */}
@@ -46,12 +42,12 @@ export default function LandingPage() {
             loop
             playsInline
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
               zIndex: 0,
             }}
           >
@@ -62,16 +58,16 @@ export default function LandingPage() {
           {/* Overlay with your text */}
           <Box
             sx={{
-              position: 'relative',
+              position: "relative",
               zIndex: 1,
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              color: 'white',
-              backgroundColor: 'rgba(0,0,0,0.3)', // subtle overlay
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              color: "white",
+              backgroundColor: "rgba(0,0,0,0.3)", // subtle overlay
               px: 2,
             }}
           >
@@ -88,7 +84,7 @@ export default function LandingPage() {
         <section
           id="about"
           style={{
-            padding: '4rem 0',
+            padding: "4rem 0",
             scrollMarginTop: SECTION_OFFSET,
           }}
         >
@@ -99,7 +95,7 @@ export default function LandingPage() {
         <section
           id="gallery"
           style={{
-            padding: '4rem 0',
+            padding: "4rem 0",
             scrollMarginTop: SECTION_OFFSET,
           }}
         >
@@ -110,11 +106,11 @@ export default function LandingPage() {
         <section
           id="reviews"
           style={{
-            padding: '4rem 0',
+            padding: "4rem 0",
             scrollMarginTop: SECTION_OFFSET,
           }}
         >
-            <ReviewsContent />
+          <ReviewsContent />
         </section>
       </Box>
     </Box>

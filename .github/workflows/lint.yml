@@ -1,0 +1,54 @@
+name: quality-checks
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint & Prettier Check
+    runs-on: ubuntu-latest
+
+    permissions:
+      statuses: write
+
+    steps:
+      # 1. Checkout the code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # 4. Run ESLint (Linter)
+      - name: Run ESLint
+        run: npm run lint
+
+      # 5. Run Prettier Check (Formatter)
+      - name: Run Prettier Check
+        run: npm run format-check
+
+      # 6. Run npm Audit for Vulnerabilities
+      - name: Run npm Audit for Vulnerabilities
+        run: npm audit --audit-level=moderate
+
+      # 7. Vercel Notification
+      - name: "notify vercel"
+        uses: "vercel/repository-dispatch/actions/status@v1"
+        with:
+          name: Vercel - mdigiorgio-github-io code-quality-checks

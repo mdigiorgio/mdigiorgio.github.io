@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -11,16 +11,16 @@ import {
   TextField,
   Typography,
   Container,
-} from '@mui/material';
-import { Masonry } from '@mui/lab';
-import { supabase, getAuthOptions } from '@/lib/supabaseClient';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { useRouter } from 'next/navigation';
+} from "@mui/material";
+import { Masonry } from "@mui/lab";
+import { supabase, getAuthOptions } from "@/lib/supabaseClient";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { useRouter } from "next/navigation";
 
-const CARD_GRADIENT_START = '#e3f2fd'; // Pronounced light blue
-const CARD_GRADIENT_END = '#bbdefb'; // Medium light blue end point
-const BORDER_COLOR = '#4fc3f7'; // Light Blue 500
+const CARD_GRADIENT_START = "#e3f2fd"; // Pronounced light blue
+const CARD_GRADIENT_END = "#bbdefb"; // Medium light blue end point
+const BORDER_COLOR = "#4fc3f7"; // Light Blue 500
 
 function ReviewItem({ review }) {
   return (
@@ -29,13 +29,13 @@ function ReviewItem({ review }) {
         p: 2.5,
         borderRadius: 2,
         background: `linear-gradient(145deg, ${CARD_GRADIENT_START}, ${CARD_GRADIENT_END})`,
-        boxShadow: '0 2px 6px rgba(0,0,0,0.08)', // Soften shadow
-        transition: 'all 0.3s ease',
-        position: 'relative',
+        boxShadow: "0 2px 6px rgba(0,0,0,0.08)", // Soften shadow
+        transition: "all 0.3s ease",
+        position: "relative",
         zIndex: 0,
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
         },
       }}
     >
@@ -68,9 +68,9 @@ function ReviewItem({ review }) {
       <Typography
         sx={{
           mt: 2,
-          whiteSpace: 'pre-line',
-          wordBreak: 'break-word',
-          color: '#000', // solid black
+          whiteSpace: "pre-line",
+          wordBreak: "break-word",
+          color: "#000", // solid black
           lineHeight: 1.6,
         }}
       >
@@ -83,20 +83,20 @@ function ReviewItem({ review }) {
 function ReviewsList({ reviews, loading, error }) {
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ mt: 2, width: '100%', px: { xs: 2, sm: 3, md: 0 } }}>
+    <Box sx={{ mt: 2, width: "100%", px: { xs: 2, sm: 3, md: 0 } }}>
       {error && <Typography color="error">{error}</Typography>}
 
       <Masonry
         columns={{ xs: 1, sm: 2, md: 2 }}
         spacing={2}
-        style={{ transition: 'all 0.3s ease' }}
+        style={{ transition: "all 0.3s ease" }}
       >
         {reviews.map((r) => (
           <ReviewItem key={r.id} review={r} />
@@ -110,7 +110,7 @@ export default function ReviewsContent() {
   const [session, setSession] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [stars, setStars] = useState(5);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -118,9 +118,9 @@ export default function ReviewsContent() {
   const fetchReviews = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from('reviews')
-      .select('*')
-      .order('inserted_at', { ascending: false });
+      .from("reviews")
+      .select("*")
+      .order("inserted_at", { ascending: false });
     if (error) setError(error.message);
     else setReviews(data || []);
     setLoading(false);
@@ -130,16 +130,22 @@ export default function ReviewsContent() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if (session) {
-        document.getElementById('review-box')?.scrollIntoView({ behavior: 'smooth' });
+        document
+          .getElementById("review-box")
+          ?.scrollIntoView({ behavior: "smooth" });
       }
     });
 
-    const { subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      if (session) {
-        document.getElementById('review-box')?.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
+    const { subscription } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+        if (session) {
+          document
+            .getElementById("review-box")
+            ?.scrollIntoView({ behavior: "smooth" });
+        }
+      },
+    );
 
     return () => subscription?.unsubscribe();
   }, [router]);
@@ -150,11 +156,11 @@ export default function ReviewsContent() {
 
   useEffect(() => {
     const channel = supabase
-      .channel('public:reviews')
+      .channel("public:reviews")
       .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'reviews' },
-        (payload) => setReviews((prev) => [payload.new, ...prev])
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "reviews" },
+        (payload) => setReviews((prev) => [payload.new, ...prev]),
       )
       .subscribe();
 
@@ -166,7 +172,7 @@ export default function ReviewsContent() {
     if (!session) return;
 
     const user = session.user;
-    const { error: insertError } = await supabase.from('reviews').insert([
+    const { error: insertError } = await supabase.from("reviews").insert([
       {
         user_id: user.id,
         name: user.user_metadata.full_name || user.email,
@@ -179,23 +185,26 @@ export default function ReviewsContent() {
     if (insertError) return setError(insertError.message);
 
     try {
-      await fetch('https://ztrwtqhhyaemqhvxcnwb.functions.supabase.co/notifyReview', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+      await fetch(
+        "https://ztrwtqhhyaemqhvxcnwb.functions.supabase.co/notifyReview",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            name: user.user_metadata.full_name || user.email,
+            content: message,
+            stars: stars || 1,
+          }),
         },
-        body: JSON.stringify({
-          name: user.user_metadata.full_name || user.email,
-          content: message,
-          stars: stars || 1,
-        }),
-      });
+      );
     } catch (err) {
-      console.error('notifyReview error:', err);
+      console.error("notifyReview error:", err);
     }
 
-    setMessage('');
+    setMessage("");
     setStars(5);
     fetchReviews();
   };
@@ -217,18 +226,18 @@ export default function ReviewsContent() {
       <Box
         id="review-box"
         sx={{
-          width: '100%',
+          width: "100%",
           mt: 5,
           p: 3,
           borderRadius: 2,
           boxShadow: 3,
-          borderLeft: '6px solid #4fc3f7',
+          borderLeft: "6px solid #4fc3f7",
           background: session
-            ? 'linear-gradient(135deg, #e1f5fe, #f0f8ff)'
-            : 'linear-gradient(135deg, #f9fbff, #f3f9ff)',
-          transition: 'all 0.3s ease',
+            ? "linear-gradient(135deg, #e1f5fe, #f0f8ff)"
+            : "linear-gradient(135deg, #f9fbff, #f3f9ff)",
+          transition: "all 0.3s ease",
           maxWidth: 520,
-          mx: 'auto',
+          mx: "auto",
         }}
       >
         {!session ? (
@@ -239,7 +248,7 @@ export default function ReviewsContent() {
             <Auth
               supabaseClient={supabase}
               appearance={{ theme: ThemeSupa }}
-              providers={['google']}
+              providers={["google"]}
               onlyThirdPartyProviders={true}
               redirectTo={getAuthOptions().redirectTo}
             />
@@ -257,19 +266,24 @@ export default function ReviewsContent() {
                 <Avatar
                   src={session.user.user_metadata.avatar_url}
                   alt={session.user.user_metadata.name || session.user.email}
-                  sx={{ border: '2px solid #81d4fa' }}
+                  sx={{ border: "2px solid #81d4fa" }}
                 />
                 <Typography variant="subtitle1">
                   {session.user.user_metadata.name || session.user.email}
                 </Typography>
               </Stack>
-              <Button variant="outlined" color="secondary" onClick={handleLogout}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             </Stack>
 
             <Typography variant="subtitle1" sx={{ mb: 2 }}>
-              Hi, {session.user.user_metadata.name || session.user.email}! Ready to leave your review?
+              Hi, {session.user.user_metadata.name || session.user.email}! Ready
+              to leave your review?
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit}>
@@ -299,18 +313,19 @@ export default function ReviewsContent() {
       {/* Policy Notice */}
       <Box
         sx={{
-          backgroundColor: '#fff8e1',
-          border: '1px solid #ffecb3',
+          backgroundColor: "#fff8e1",
+          border: "1px solid #ffecb3",
           borderRadius: 1,
           padding: 2,
-          mx: 'auto',
+          mx: "auto",
           maxWidth: 520,
           mt: 3,
         }}
       >
-        <Typography variant="body2" sx={{ color: '#8d6e63' }}>
-          By submitting a review, you agree to our community guidelines. Non-inclusive, racist, or violent
-          content will be removed by the administrator.
+        <Typography variant="body2" sx={{ color: "#8d6e63" }}>
+          By submitting a review, you agree to our community guidelines.
+          Non-inclusive, racist, or violent content will be removed by the
+          administrator.
         </Typography>
       </Box>
     </Container>
