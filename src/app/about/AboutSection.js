@@ -13,6 +13,7 @@ import {
 import { Masonry } from "@mui/lab";
 import { Star } from "@mui/icons-material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { cardStyle } from "@/styles/commonStyles";
 
 // Define the data array for languages outside the component for cleaner JSX
 const languages = [
@@ -20,13 +21,6 @@ const languages = [
   { flag: "🇬🇧", name: "English", level: "Fluent" },
   { flag: "🇪🇸", name: "Spanish", level: "Fluent" },
 ];
-
-const cardStyle = {
-  background: "linear-gradient(135deg, #f0f9ff 0%, #e0f7fa 100%)",
-  border: "1px solid #b2ebf2",
-  borderRadius: 6,
-  boxShadow: 3,
-};
 
 function EducationCard({ logo, href, name, location, courses }) {
   return (
