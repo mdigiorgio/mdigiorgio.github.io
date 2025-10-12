@@ -27,10 +27,28 @@ const oceanTheme = createTheme({
       lineHeight: 1.6,
     },
     h1: { fontFamily: headingFont.style.fontFamily },
-    h2: { fontFamily: headingFont.style.fontFamily },
-    h3: { fontFamily: headingFont.style.fontFamily },
+    h2: {
+      fontFamily: headingFont.style.fontFamily,
+      fontSize: "3.75rem", // Default MUI size for h2
+      "@media (max-width:600px)": {
+        fontSize: "2.8rem", // Smaller size for xs screens
+      },
+    },
+    h3: {
+      fontFamily: headingFont.style.fontFamily,
+      fontSize: "3rem", // Default size (sm and up)
+      "@media (max-width:600px)": {
+        fontSize: "2.5rem", // Smaller size for xs screens
+      },
+    },
     h4: { fontFamily: headingFont.style.fontFamily },
-    h5: { fontFamily: headingFont.style.fontFamily },
+    h5: {
+      fontFamily: headingFont.style.fontFamily,
+      fontSize: "1.5rem", // Default MUI size for h5
+      "@media (max-width:600px)": {
+        fontSize: "1.3rem", // Smaller size for xs screens
+      },
+    },
   },
 });
 
