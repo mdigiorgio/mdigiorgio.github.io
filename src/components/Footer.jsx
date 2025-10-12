@@ -30,8 +30,11 @@ export default function Footer() {
                 aria-label="Email"
                 href="mailto:micheleunderwater@gmail.com"
                 sx={{
-                  color: "inherit",
-                  "&:hover": { color: "primary.light" },
+                  color: "#ffffff",
+                  "&:hover": {
+                    // Optional: Use the 'dark' shade for a subtle hover effect
+                    color: "#cccccc",
+                  },
                 }}
                 target="_blank"
               >
@@ -47,7 +50,11 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  color: "#E1306C",
+                  color: "#ffffff",
+                  "&:hover": {
+                    // Optional: Use the 'dark' shade for a subtle hover effect
+                    color: "#cccccc",
+                  },
                 }}
               >
                 <InstagramIcon fontSize="large" />
