@@ -1,7 +1,15 @@
+// src/components/ThemeWrapper.tsx
+
 "use client";
 
-import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import React from "react";
+import { ThemeProvider, createTheme, CssBaseline, Theme } from "@mui/material";
 import { Geist, Montserrat } from "next/font/google";
+
+// Define Prop Interface
+interface ThemeWrapperProps {
+  children: React.ReactNode;
+}
 
 // Examples of nice pairings:
 const headingFont = Montserrat({
@@ -10,7 +18,8 @@ const headingFont = Montserrat({
 });
 const bodyFont = Geist({ subsets: ["latin"] });
 
-const oceanTheme = createTheme({
+// Use createTheme type assertion for strong typing
+const oceanTheme: Theme = createTheme({
   palette: {
     primary: { main: "#0277bd" },
     secondary: { main: "#80deea" },
@@ -29,35 +38,34 @@ const oceanTheme = createTheme({
     h1: { fontFamily: headingFont.style.fontFamily },
     h2: {
       fontFamily: headingFont.style.fontFamily,
-      fontSize: "3.75rem", // Default MUI size for h2
+      fontSize: "3.75rem",
       "@media (max-width:600px)": {
-        fontSize: "2.8rem", // Smaller size for xs screens
+        fontSize: "2.8rem",
       },
     },
     h3: {
       fontFamily: headingFont.style.fontFamily,
-      fontSize: "3rem", // Default size (sm and up)
+      fontSize: "3rem",
       "@media (max-width:600px)": {
-        fontSize: "2.5rem", // Smaller size for xs screens
+        fontSize: "2.5rem",
       },
       textShadow: "1px 1px 3px rgba(0, 0, 0, 0.5)",
     },
     h4: { fontFamily: headingFont.style.fontFamily },
     h5: {
       fontFamily: headingFont.style.fontFamily,
-      fontSize: "1.5rem", // Default MUI size for h5
+      fontSize: "1.5rem",
       "@media (max-width:600px)": {
-        fontSize: "1.3rem", // Smaller size for xs screens
+        fontSize: "1.3rem",
       },
     },
   },
 });
 
-export default function ThemeWrapper({ children }) {
+export default function ThemeWrapper({ children }: ThemeWrapperProps) {
   return (
     <ThemeProvider theme={oceanTheme}>
-      <CssBaseline />
-      {children}
+      <CssBaseline /> {children}
     </ThemeProvider>
   );
 }

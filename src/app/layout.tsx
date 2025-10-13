@@ -1,10 +1,22 @@
+// src/app/layout.tsx
+
 import "./globals.css";
+import React from "react";
 import { Box } from "@mui/material";
+
 import Footer from "@/components/Footer";
-import NavBar from "@/components/NavBar";
+import { NavBar, APPBAR_HEIGHT } from "@/components/NavBar";
 import ThemeWrapper from "@/components/ThemeWrapper";
 
-export const metadata = {
+// Define the Metadata Type (Next.js standard)
+import type { Metadata } from "next";
+
+// Define the Props Type for the Layout
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export const metadata: Metadata = {
   title: "Michele Underwater",
   description: "Divemaster profile and contents",
   icons: {
@@ -13,18 +25,13 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
-  const SECTION_OFFSET = "64px";
-
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body suppressHydrationWarning>
         <ThemeWrapper>
           {/* Render the responsive NavBar */}
           <NavBar />
-
-          {/* Spacer to prevent content overlap with fixed NavBar */}
-          <Box sx={{ height: SECTION_OFFSET }} />
 
           {/* Landing page contents */}
           <Box
@@ -37,7 +44,7 @@ export default function RootLayout({ children }) {
               backgroundAttachment: "fixed",
             }}
           >
-            {children} {/* now children includes <main> from page components */}
+            {children}
           </Box>
         </ThemeWrapper>
 

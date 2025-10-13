@@ -1,20 +1,21 @@
+// src/app/page.tsx
+
 "use client";
 
 import React, { useState } from "react";
 import { Box, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { APPBAR_HEIGHT } from "@/components/NavBar";
 
 // Sections
-import AboutSection from "./about/AboutSection.js";
-import GallerySection from "./gallery/GallerySection.js";
-import ReviewsContent from "./reviews/ReviewsContent.js";
-
-const SECTION_OFFSET = "64px";
+import AboutSection from "./about/AboutSection";
+import GallerySection from "./gallery/GallerySection";
+import ReviewsContent from "./reviews/ReviewsContent";
 
 export default function LandingPage() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const open: boolean = Boolean(anchorEl);
 
   return (
     <Box>
@@ -79,8 +80,8 @@ export default function LandingPage() {
         <section
           id="about"
           style={{
-            padding: "4rem 0",
-            scrollMarginTop: SECTION_OFFSET,
+            padding: "2rem 0",
+            scrollMarginTop: APPBAR_HEIGHT,
           }}
         >
           <AboutSection />
@@ -90,8 +91,8 @@ export default function LandingPage() {
         <section
           id="gallery"
           style={{
-            padding: "4rem 0",
-            scrollMarginTop: SECTION_OFFSET,
+            padding: "2rem 0",
+            scrollMarginTop: APPBAR_HEIGHT,
           }}
         >
           <GallerySection />
@@ -101,8 +102,8 @@ export default function LandingPage() {
         <section
           id="reviews"
           style={{
-            padding: "4rem 0",
-            scrollMarginTop: SECTION_OFFSET,
+            padding: "2rem 0",
+            scrollMarginTop: APPBAR_HEIGHT,
           }}
         >
           <ReviewsContent />
