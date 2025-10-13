@@ -17,6 +17,7 @@ import { supabase, getAuthOptions } from "@/lib/supabaseClient";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
+import SectionTitle from "@/components/SectionTitle";
 
 const CARD_GRADIENT_START = "#e3f2fd"; // Pronounced light blue
 const CARD_GRADIENT_END = "#bbdefb"; // Medium light blue end point
@@ -216,9 +217,7 @@ export default function ReviewsContent() {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h3" align="center" sx={{ mb: 6 }}>
-        What My Divers Are Saying 💬
-      </Typography>
+      <SectionTitle>What My Divers Are Saying 💬</SectionTitle>
 
       <ReviewsList reviews={reviews} loading={loading} error={error} />
 

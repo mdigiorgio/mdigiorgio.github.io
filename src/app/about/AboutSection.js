@@ -14,6 +14,7 @@ import { Masonry } from "@mui/lab";
 import { Star } from "@mui/icons-material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { cardStyle } from "@/styles/commonStyles";
+import SectionTitle from "@/components/SectionTitle";
 
 // Define the data array for languages outside the component for cleaner JSX
 const languages = [
@@ -84,7 +85,7 @@ function StoryCard() {
   return (
     <Card variant="outlined" sx={{ mb: 6, ...cardStyle }}>
       <CardContent>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" gutterBottom fontWeight="700">
           My Story
         </Typography>
 
@@ -251,9 +252,7 @@ export default function AboutSection() {
 
   return (
     <Box id="about">
-      <Typography variant="h3" align="center" sx={{ mb: 4 }}>
-        About Me
-      </Typography>
+      <SectionTitle>About Me</SectionTitle>
 
       <Container maxWidth="lg">
         <StoryCard />

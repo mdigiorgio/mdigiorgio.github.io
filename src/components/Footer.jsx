@@ -23,22 +23,19 @@ export default function Footer() {
       sx={{
         bgcolor: "#757575",
         color: "white",
-        py: 4,
-        borderTop: "1px solid #9e9e9e",
       }}
     >
-      <Container maxWidth="lg">
+      <Container>
         {/* Primary Grid Container for all footer content */}
         <Grid
           container
-          spacing={3} // Vertical spacing between rows
           direction="column"
           alignItems="center"
           justifyContent="center"
         >
           {/* 1. Icon Buttons Row (First Row) */}
           <Grid item>
-            <Grid container spacing={2} justifyContent="center">
+            <Grid container justifyContent="center">
               {/* Email Icon Item */}
               <Grid item>
                 <IconButton
@@ -93,7 +90,7 @@ export default function Footer() {
 
           {/* 3. Privacy and T&Cs Links Row (Third Row) */}
           <Grid item>
-            <Typography variant="body2">
+            <Typography variant="body2" sx={{ mb: 2 }}>
               {/* Privacy Policy Link - Styled with MuiLink, Routed with Next/Link */}
               <MuiLink
                 component={Link}

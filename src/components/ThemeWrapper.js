@@ -40,6 +40,7 @@ const oceanTheme = createTheme({
       "@media (max-width:600px)": {
         fontSize: "2.5rem", // Smaller size for xs screens
       },
+      textShadow: "1px 1px 3px rgba(0, 0, 0, 0.5)",
     },
     h4: { fontFamily: headingFont.style.fontFamily },
     h5: {

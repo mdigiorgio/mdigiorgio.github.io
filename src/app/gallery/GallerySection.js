@@ -8,6 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import SectionTitle from "@/components/SectionTitle";
 
 // We define the uniform sizing as a flex-basis value.
 // 30% allows for 3 videos per row with some spacing between them.
@@ -44,9 +45,7 @@ export default function GallerySection() {
 
   return (
     <Box id="gallery">
-      <Typography variant="h3" align="center" sx={{ mb: 4 }}>
-        Gallery 🎬
-      </Typography>
+      <SectionTitle>Gallery 🎬</SectionTitle>
 
       <Container maxWidth="lg">
         {loading ? (
