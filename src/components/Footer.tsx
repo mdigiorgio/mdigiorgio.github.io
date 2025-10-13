@@ -1,4 +1,4 @@
-// Footer.jsx
+// src/components/Footer.tsx
 
 import React from "react";
 import Link from "next/link";
@@ -15,7 +15,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear: number = new Date().getFullYear();
 
   return (
     <Box

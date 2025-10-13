@@ -1,4 +1,4 @@
-// src/components/NavBar.jsx
+// src/components/NavBar.tsx
 
 "use client";
 
@@ -13,8 +13,20 @@ import {
   useTheme,
 } from "@mui/material";
 
+// Define the type for the section objects
+interface Section {
+  id: string;
+  label: string;
+}
+
+interface INavLinks {
+  id: string;
+  label: string;
+  path: string;
+}
+
 // Only for scroll tracking logic (must match IDs in src/app/page.tsx)
-const scrollableSections = [
+const scrollableSections: Section[] = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
   { id: "gallery", label: "Gallery" },
@@ -22,37 +34,37 @@ const scrollableSections = [
 ];
 
 // All navigation links, using absolute paths for cross-page navigation
-const navLinks = [
+const navLinks: INavLinks[] = [
   { id: "home", label: "Home", path: "/" },
   { id: "about", label: "About", path: "/#about" },
   { id: "gallery", label: "Gallery", path: "/#gallery" },
   { id: "reviews", label: "Reviews", path: "/#reviews" },
 ];
 
-const LOGO_HEIGHT = 50;
-const APPBAR_HEIGHT = 64; // Standard MUI AppBar height for scroll offset
+const LOGO_HEIGHT: number = 50;
+export const APPBAR_HEIGHT: number = 64; // Standard MUI AppBar height for scroll offset
 
-export default function NavBar() {
-  const [activeSection, setActiveSection] = useState("home");
+export const NavBar: React.FC = () => {
+  const [activeSection, setActiveSection] = useState<string>("home");
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   // --- SCROLL CHECKER (For highlighting active link) ---
-  const checkScrollPosition = useCallback(() => {
+  const checkScrollPosition = useCallback((): void => {
     // Only run scroll check on the landing page
     if (typeof window === "undefined" || window.location.pathname !== "/") {
       return;
     }
 
     // Scroll position + Offset (to account for fixed header)
-    const scrollY = window.scrollY + 80;
+    const scrollY: number = window.scrollY + 80;
 
-    let newActiveSection = null;
+    let newActiveSection: string | null = null;
 
     // Check sections from the bottom up
     for (let i = scrollableSections.length - 1; i >= 0; i--) {
-      const sec = scrollableSections[i];
-      const element = document.getElementById(sec.id);
+      const sec: Section = scrollableSections[i];
+      const element: HTMLElement | null = document.getElementById(sec.id);
 
       if (element) {
         if (scrollY >= element.offsetTop) {
@@ -76,25 +88,25 @@ export default function NavBar() {
   }, []);
 
   // --- NAVIGATION HANDLER (Handles both smooth scroll and page change) ---
-  const handleNavigation = (path, id) => {
+  const handleNavigation = (path: string, id: string) => {
     if (typeof window === "undefined") return;
 
-    const isSectionLink = path.startsWith("/#");
-    const isOnLandingPage = window.location.pathname === "/";
+    const isSectionLink: boolean = path.startsWith("/#");
+    const isOnLandingPage: boolean = window.location.pathname === "/";
 
     // Scenario 1: Smooth Scroll (Only allowed on the landing page for hash links)
     if (isSectionLink && isOnLandingPage) {
-      const element = document.getElementById(id);
+      const element: HTMLElement | null = document.getElementById(id);
       if (element) {
         // 1. Manually set active link immediately
         setActiveSection(id);
 
         // 2. Perform the smooth scroll
-        const offset = APPBAR_HEIGHT;
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
-        const offsetPosition = elementPosition - offset;
+        const offset: number = APPBAR_HEIGHT;
+        const bodyRect: number = document.body.getBoundingClientRect().top;
+        const elementRect: number = element.getBoundingClientRect().top;
+        const elementPosition: number = elementRect - bodyRect;
+        const offsetPosition: number = elementPosition - offset;
 
         window.scrollTo({
           top: offsetPosition,
@@ -154,7 +166,7 @@ export default function NavBar() {
 
           {/* 2. Navigation Links */}
           <Box sx={{ display: "flex", flexGrow: 1 }}>
-            {navLinks.map((item) => (
+            {navLinks.map((item: INavLinks) => (
               <Button
                 key={item.id}
                 // Pass both path (for navigation) and id (for smooth scroll)
@@ -186,4 +198,4 @@ export default function NavBar() {
       </AppBar>
     </Box>
   );
-}
+};
