@@ -1,7 +1,8 @@
 import "./globals.css";
 import { Box } from "@mui/material";
-import ThemeWrapper from "@/components/ThemeWrapper";
 import Footer from "@/components/Footer";
+import NavBar from "@/components/NavBar";
+import ThemeWrapper from "@/components/ThemeWrapper";
 
 export const metadata = {
   title: "Michele Underwater",
@@ -13,10 +14,19 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const SECTION_OFFSET = "64px";
+
   return (
     <html lang="en">
       <body suppressHydrationWarning>
         <ThemeWrapper>
+          {/* Render the responsive NavBar */}
+          <NavBar />
+
+          {/* Spacer to prevent content overlap with fixed NavBar */}
+          <Box sx={{ height: SECTION_OFFSET }} />
+
+          {/* Landing page contents */}
           <Box
             sx={{
               minHeight: "100vh",

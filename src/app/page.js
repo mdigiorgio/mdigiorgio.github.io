@@ -5,14 +5,12 @@ import { Box, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
-import NavBar from "@/components/NavBar.js";
-
 // Sections
 import AboutSection from "./about/AboutSection.js";
 import GallerySection from "./gallery/GallerySection.js";
 import ReviewsContent from "./reviews/ReviewsContent.js";
 
-const SECTION_OFFSET = "80px";
+const SECTION_OFFSET = "64px";
 
 export default function LandingPage() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,9 +18,6 @@ export default function LandingPage() {
 
   return (
     <Box>
-      {/* Render the responsive NavBar */}
-      <NavBar />
-
       {/* Sections */}
       <Box component="main">
         {/* Hero/Home stays full viewport */}
