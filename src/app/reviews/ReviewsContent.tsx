@@ -2,22 +2,20 @@
 
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Avatar,
   Box,
   Button,
   CircularProgress,
+  Container,
+  IconButton,
   Rating,
   Stack,
   TextField,
   Typography,
-  Container,
 } from "@mui/material";
-import { Masonry } from "@mui/lab";
-// Ensure these imports are correctly configured in your project
-// You'll need to define 'supabase' and 'getAuthOptions' in a separate file like '@/lib/supabaseClient'
-// and the 'router' needs to be provided by 'next/navigation'
+
 // @ts-ignore
 import { supabase, getAuthOptions } from "@/lib/supabaseClient";
 // @ts-ignore
@@ -28,6 +26,9 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
 // @ts-ignore
 import { SectionTitle } from "@/utils/index";
+
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // Define the shape of a review object for TypeScript
 interface Review {
@@ -50,7 +51,13 @@ const BORDER_COLOR = "#4fc3f7"; // Light Blue 500
 function ReviewItem({ review }: { review: Review }): React.ReactElement {
   return (
     <Box
+      className="review-item-card"
       sx={{
+        flexShrink: 0,
+        scrollSnapAlign: "start",
+        width: { xs: 320, sm: 380, md: 450 },
+        marginRight: { xs: 3, sm: 4, md: 5 },
+
         p: 2.5,
         borderRadius: 2,
         background: `linear-gradient(145deg, ${CARD_GRADIENT_START}, ${CARD_GRADIENT_END})`,
@@ -106,7 +113,7 @@ function ReviewItem({ review }: { review: Review }): React.ReactElement {
 }
 
 /**
- * Component to display the list of reviews using Masonry layout.
+ * Component to display the list of reviews horizontal scroll.
  */
 function ReviewsList({
   reviews,
@@ -117,6 +124,71 @@ function ReviewsList({
   loading: boolean;
   error: string | null;
 }): React.ReactElement {
+  const sliderRef: React.RefObject<HTMLDivElement | null> = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+  const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
+
+  const updateButtonState = useCallback(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = slider;
+
+    // Use a small tolerance for checking the end to account for floating-point inaccuracies
+    const tolerance = 2;
+
+    // Check if we can scroll left (i.e., we are not at the very start)
+    setCanScrollLeft(scrollLeft > tolerance);
+
+    // Check if we can scroll right (i.e., scrollLeft is less than max possible scroll)
+    // Max Scroll is: scrollWidth - clientWidth
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - tolerance);
+  }, []);
+
+  // --- 2. Programmatic Scrolling (Buttons) ---
+  const scrollToStep = (direction: number) => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    // Find the width of a single item including margin
+    const itemElement = slider.querySelector(".review-item-card");
+    if (!itemElement) return;
+
+    const htmlItemElement = itemElement as HTMLElement;
+    const MARGIN_SIZE_PX: number = 40;
+    // Item width (including its padding) + margin/gap
+    const distance = htmlItemElement.offsetWidth + MARGIN_SIZE_PX;
+
+    slider.scrollBy({
+      left: distance * direction,
+      behavior: "smooth",
+    });
+  };
+
+  // --- 3. Effects (Mount, Scroll, and Resize) ---
+  useEffect(() => {
+    const slider = sliderRef.current;
+
+    // Initial state update on mount
+    // Run this inside a timeout to ensure all DOM elements are rendered and sized correctly
+    const checkTimeout = setTimeout(updateButtonState, 100);
+
+    if (slider) {
+      // Attach listener for user scrolling
+      slider.addEventListener("scroll", updateButtonState);
+    }
+
+    // Attach listener for window resize (as widths change)
+    window.addEventListener("resize", updateButtonState);
+
+    // Cleanup
+    return () => {
+      clearTimeout(checkTimeout);
+      if (slider) slider.removeEventListener("scroll", updateButtonState);
+      window.removeEventListener("resize", updateButtonState);
+    };
+  }, [updateButtonState]);
+
   if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
@@ -129,15 +201,73 @@ function ReviewsList({
     <Box sx={{ mt: 2, width: "100%", px: { xs: 2, sm: 3, md: 0 } }}>
       {error && <Typography color="error">{error}</Typography>}
 
-      <Masonry
-        columns={{ xs: 1, sm: 2, md: 2 }}
-        spacing={2}
-        style={{ transition: "all 0.3s ease" }}
-      >
-        {reviews.map((r) => (
-          <ReviewItem key={r.id} review={r} />
-        ))}
-      </Masonry>
+      <Box sx={{ position: "relative" }}>
+        {/* Navigation Buttons */}
+        <IconButton
+          onClick={() => scrollToStep(-1)}
+          disabled={!canScrollLeft}
+          sx={{
+            position: "absolute",
+            left: 0,
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 10,
+            bgcolor: "white",
+            boxShadow: 3,
+            display: { xs: "none", md: "flex" }, // Hide on smallest screen
+            "&:hover": { bgcolor: "grey.50" },
+            opacity: canScrollLeft ? 1 : 0.5,
+            transition: "opacity 0.3s",
+          }}
+          aria-label="previous review"
+        >
+          <ChevronLeftIcon />
+        </IconButton>
+
+        <IconButton
+          onClick={() => scrollToStep(1)}
+          disabled={!canScrollRight}
+          sx={{
+            position: "absolute",
+            right: 0,
+            top: "50%",
+            transform: "translate(50%, -50%)",
+            zIndex: 10,
+            bgcolor: "white",
+            boxShadow: 3,
+            display: { xs: "none", md: "flex" }, // Hide on smallest screen
+            "&:hover": { bgcolor: "grey.50" },
+            opacity: canScrollRight ? 1 : 0.5,
+            transition: "opacity 0.3s",
+          }}
+          aria-label="next review"
+        >
+          <ChevronRightIcon />
+        </IconButton>
+
+        {/* SLIDER TRACK */}
+        <Box
+          ref={sliderRef}
+          // Custom CSS for Scroll Snapping and overflow control
+          sx={{
+            display: "flex",
+            overflowX: "scroll",
+            scrollSnapType: "x mandatory",
+            scrollBehavior: "smooth",
+            // Ensure padding so the first/last item isn't flush with the container edge
+            px: { xs: 2, sm: 0 },
+            py: 1,
+            // Hide scrollbar
+            "&::-webkit-scrollbar": { display: "none" },
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
+        >
+          {reviews.map((r) => (
+            <ReviewItem key={r.id} review={r} />
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 }
@@ -154,8 +284,7 @@ export default function ReviewsContent(): React.ReactElement {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // FIX FOR RESIZE OBSERVER ERROR: State to ensure client-side rendering
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState<boolean>(false);
 
   // @ts-ignore
   const router = useRouter();
@@ -172,7 +301,7 @@ export default function ReviewsContent(): React.ReactElement {
     setLoading(false);
   };
 
-  // 1. Isolated Effect to signal client-side mounting (most reliable fix for Masonry/ResizeObserver)
+  // 1. Isolated Effect to signal client-side mounting
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -298,11 +427,10 @@ export default function ReviewsContent(): React.ReactElement {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container maxWidth="lg">
       {/* @ts-ignore */}
       <SectionTitle>What My Divers Are Saying 💬</SectionTitle>
 
-      {/* This component containing Masonry is now only rendered on the client */}
       <ReviewsList reviews={reviews} loading={loading} error={error} />
 
       {/* Auth / Review Box */}
