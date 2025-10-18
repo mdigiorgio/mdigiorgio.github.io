@@ -178,7 +178,7 @@ const StoryCard: React.FC = () => {
           <br />
           <br />
           Growing up in a small Sicilian village in the Parco dei Nebrodi, while
-          competitive swimming was not accssible, my innate love for the ocean
+          competitive swimming was not accessible, my innate love for the ocean
           only grew.
           <br />
           <br />
