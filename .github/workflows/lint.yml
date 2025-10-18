@@ -51,4 +51,4 @@ jobs:
       - name: "notify vercel"
         uses: "vercel/repository-dispatch/actions/status@v1"
         with:
-          name: Vercel - mdigiorgio-github-io code-quality-checks
+          name: Vercel - diveweb code-quality-checks

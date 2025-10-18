@@ -122,12 +122,12 @@ export default function ReviewsContent(): React.ReactElement {
 
   // --- Auth redirect helpers ---
   const handleLogin = () => {
-    const returnTo = encodeURIComponent("/#reviews");
+    const returnTo: string = `${window.location.origin}/#review-box`;
     router.push(`/api/auth/login?returnTo=${returnTo}`);
   };
 
   const handleLogout = () => {
-    const returnTo = encodeURIComponent("/#reviews");
+    const returnTo: string = `${window.location.origin}/#review-box`;
     router.push(`/api/auth/logout?returnTo=${returnTo}`);
   };
 
