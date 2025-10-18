@@ -5,16 +5,11 @@ import React from "react";
 import { Box } from "@mui/material";
 
 import Footer from "@/components/Footer";
-import { NavBar, APPBAR_HEIGHT } from "@/components/NavBar";
+import { NavBar } from "@/components/NavBar";
 import ThemeWrapper from "@/components/ThemeWrapper";
+import { UserProvider } from "@auth0/nextjs-auth0/client"; // Works in Next.js 13-15 App Router
 
-// Define the Metadata Type (Next.js standard)
 import type { Metadata } from "next";
-
-// Define the Props Type for the Layout
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
 
 export const metadata: Metadata = {
   title: "Michele Underwater",
@@ -25,30 +20,32 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <ThemeWrapper>
-          {/* Render the responsive NavBar */}
-          <NavBar />
-
-          {/* Landing page contents */}
-          <Box
-            sx={{
-              minHeight: "100vh",
-              backgroundImage: 'url("/backgrounds/ocean-texture.jpg")',
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed",
-            }}
-          >
-            {children}
-          </Box>
-        </ThemeWrapper>
-
-        <Footer />
+        <UserProvider>
+          <ThemeWrapper>
+            <NavBar />
+            <Box
+              sx={{
+                minHeight: "100vh",
+                backgroundImage: 'url("/backgrounds/ocean-texture.jpg")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+              }}
+            >
+              {children}
+            </Box>
+            <Footer />
+          </ThemeWrapper>
+        </UserProvider>
       </body>
     </html>
   );
